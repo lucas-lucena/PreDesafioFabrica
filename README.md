@@ -47,6 +47,8 @@ Vamos rodar o server
 
 Se a instalação for bem sucedida ele nos mostrará uma página em http://127.0.0.1:8000
 
+    Starting development server at http://127.0.0.1:8000
+
 Agora vamos iniciar o app
 
     (venv) $ python manage.py startapp app
@@ -111,4 +113,55 @@ urlpatterns = [
     path('app', include('app.urls')),
 ]
 
+```
+
+Agora podemos ver a mensagem "Hello World" se abrirmos o server em http://127.0.0.1:8000/app/index/
+
+    (venv) $ (venv) $ python manage.py runserver
+    Starting development server at http://127.0.0.1:8000
+
+## Templates
+
+Vamos criar uma pasta `/templates/` dentro de `/app/`, e dentro vamos criar outra pasta chamada `app` também, boas práticas para separar templates de acordo com cada app em específico.
+
+Nesse caso teriamos a seguinte estrutura  `./app/templates/app/`
+
+    (venv) $ cd ../app
+    (venv) $ mkdir templates
+    (venv) $ cd ./templates
+    (venv) $ mkdir ./app
+    (venv) $ cd ./app
+
+Agora dentro de `./app/templates/app/` vamos criar `home.html`
+
+    (venv) $ touch home.html
+    (venv) $ nano home.html
+
+E vamos adicionar o seguinte código HTML
+
+```html
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+</head>
+<body>
+    <h1>Bem-vindo a FABRICA!</h1>
+    <p> Agradecimento ao nosso CEO</p>
+</body>
+</html>
+```
+
+Precisamos agora alterar a a view em `views.py` para renderizar o template acima:
+
+    (venv) $ cd ../../
+    (venv) $ nano views.py
+
+```py
+from django.shortcuts import render
+
+def home(request):
+    return render(request, 'app/home.html')
 ```
